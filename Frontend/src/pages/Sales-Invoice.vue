@@ -65,9 +65,9 @@
           />
 
           <Button
-            label="New"
+            label="+New"
             variant="solid"
-            theme="blue"
+            theme="gray"
             size="sm"
             @click="showNewCustomerDialog = true"
           />
@@ -93,13 +93,17 @@
           <tr v-for="(item, index) in form.items" :key="index">
             <td class="p-2">{{ index + 1 }}</td>
             <td class="p-2 w-[25%]">
-              <FrappeLink
-                v-model="item.item_code"
-                doctype="Item"
-                :filters="{}"
-                placeholder="Select Item"
-                @create-new="createNewItem"
-              />
+              <div class="flex items-center gap-2">
+                <FrappeLink
+                  v-model="item.item_code"
+                  doctype="Item"
+                  :filters="{}"
+                  placeholder="Select Item"
+                  @create-new="showNewItemDialog = true"
+                  class="flex-1"
+                />
+                <Button label="+New" variant="solid" theme="gray" size="sm" @click="(showNewItemDialog = true, selectedItemRowIndex = index)" />
+              </div>
             </td>
             <td class="p-2 text-left">
               <FormControl type="text" v-model="item.qty" placeholder="0" />
@@ -193,6 +197,73 @@
         </form>
       </template>
     </Dialog>
+
+    <!-- Dialog for Adding New Item -->
+    <Dialog
+      v-if="showNewItemDialog"
+      v-model="showNewItemDialog"
+      :options="{
+        title: 'New Item',
+        size: '2xl',
+        actions: [
+          {
+            label: 'Create',
+            variant: 'solid',
+            onClick(close) {
+              item.insert.submit({ ...newItem }, {
+                onSuccess(data) {
+                  form.item = data.name;
+                  newItem.item_code = '';
+                  newItem.item_name = '';
+                  newItem.item_group = '';
+                  newItem.stock_uom = '';
+                  item.list.fetch();
+                  close();
+                }
+              });
+            }
+          }
+        ]
+      }"
+    >
+      <template #body-content>
+        <form class="space-y-3">
+          <div class="p-2">
+            <FormControl
+              type="text"
+              placeholder="Enter Item Code"
+              label="Item Code"
+              v-model="newItem.item_code"
+            />
+          </div>
+          <div class="p-2">
+            <FormControl
+              type="text"
+              placeholder="Enter Item Name"
+              label="Item Name"
+              v-model="newItem.item_name"
+            />
+          </div>
+          <div class="p-2">
+            <FormControl
+              type="select"
+              :options="itemGroupOptions"
+              placeholder="Enter Item Group"
+              label="Item Group"
+              v-model="newItem.item_group"
+            />
+          </div>
+          <div class="p-2">
+            <FormControl
+              type="text"
+              placeholder="Default Unit of Measure"
+              label="Default Unit of Measure"
+              v-model="newItem.stock_uom"
+            />
+          </div>
+        </form>
+      </template>
+    </Dialog>
   </div>
 </template>
 
@@ -203,8 +274,7 @@
     Button,
     Tabs,
     Dialog,
-    createListResource,
-    createDocumentResource
+    createListResource
   } from 'frappe-ui'
   import { useRouter } from 'vue-router'
   import FrappeLink from '@/components/frappe-ui/Link.vue'
@@ -214,11 +284,21 @@
   const tabIndex = ref(0)
   const createSalesInvoice = ref(false)
   const showNewCustomerDialog = ref(false)
+  const showNewItemDialog = ref(false)
+  const selectedItemRowIndex = ref(null)
+
   const newCustomer = reactive({
     customer_name: '',
     customer_type: 'Individual',
     customer_group: '',
     territory: ''
+  })
+
+  const newItem = reactive({
+    item_code: '',
+    item_name: '',
+    item_group: '',
+    stock_uom: 'Nos'
   })
 
   const form = reactive({
@@ -265,10 +345,6 @@
     form.items = [{ item_code: '', qty: 0, rate: 0, amount: 0 }]
   }
 
-  function createNewItem(name) {
-    console.log('Creating new item:', name)
-  }
-
   const customer = createListResource({
     doctype: 'Customer',
     fields: ['name', 'customer_name', 'customer_type', 'territory'],
@@ -313,9 +389,20 @@
     return (territory.list.data || []).map(group => group.name)
   })
 
+  const itemGroup = createListResource({
+    doctype: 'Item Group',
+    fields: ['name'],
+    limit_page_length: 999
+  })
+
+  const itemGroupOptions = computed(() => {
+    return (itemGroup.list.data || []).map(group => group.name)
+  })
+
   customers.list.fetch()
   customerGroups.list.fetch()
   territory.list.fetch()
+  itemGroup.list.fetch()
   customer.list.fetch()
   item.list.fetch()
   sales_invoices.list.fetch()
