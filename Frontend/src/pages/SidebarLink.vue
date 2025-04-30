@@ -27,7 +27,7 @@
             Sales Invoice
             </span>
         </RouterLink>
-
+  
         <RouterLink
             to="/customer"
             class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
@@ -41,7 +41,7 @@
             Customers
             </span>
         </RouterLink>
-
+  
         <RouterLink
             to="/chart_of_accounts"
             class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
@@ -55,7 +55,7 @@
             Chart Of Accounts
             </span>
         </RouterLink>
-
+  
         <RouterLink
             to="/item"
             class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
@@ -69,9 +69,13 @@
             Item
             </span>
         </RouterLink>
-
+  
         <!-- Additional Modules -->
-        <RouterLink to="/point_of_sale" class="nav-link" :class="{ 'font-bold': $route.path === '/point_of_sale' }">
+        <RouterLink 
+            to="/point_of_sale" 
+            class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+            :class="{ 'font-bold': $route.path === '/point_of_sale' }"
+        >
             <Icon icon="lucide:shopping-cart" class="h-5 w-5" />
             <span
                 class="transition-all duration-200 text-sm"
@@ -80,8 +84,12 @@
             Point Of Sale
             </span>
         </RouterLink>
-
-        <RouterLink to="/purchase_invoice" class="nav-link" :class="{ 'font-bold': $route.path === '/purchase_invoice' }">
+  
+        <RouterLink 
+            to="/purchase_invoice" 
+            class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+            :class="{ 'font-bold': $route.path === '/purchase_invoice' }"
+        >
             <Icon icon="lucide:file-minus" class="h-5 w-5" />
             <span
                 class="transition-all duration-200 text-sm"
@@ -90,8 +98,12 @@
             Purchase Invoice
             </span>
         </RouterLink>
-
-        <RouterLink to="/payment_entry" class="nav-link" :class="{ 'font-bold': $route.path === '/payment_entry' }">
+  
+        <RouterLink 
+            to="/payment_entry" 
+            class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+            :class="{ 'font-bold': $route.path === '/payment_entry' }"
+        >
             <Icon icon="lucide:credit-card" class="h-5 w-5" />
             <span
                 class="transition-all duration-200 text-sm"
@@ -100,8 +112,12 @@
             Payment Entry
             </span>
         </RouterLink>
-
-        <RouterLink to="/journal_entry" class="nav-link" :class="{ 'font-bold': $route.path === '/journal_entry' }">
+  
+        <RouterLink 
+            to="/journal_entry" 
+            class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+            :class="{ 'font-bold': $route.path === '/journal_entry' }"
+        >
             <Icon icon="lucide:book" class="h-5 w-5" />
             <span
                 class="transition-all duration-200 text-sm"
@@ -110,8 +126,12 @@
             Journal Entry
             </span>
         </RouterLink>
-
-        <RouterLink to="/landed_cost_voucher" class="nav-link" :class="{ 'font-bold': $route.path === '/landed_cost_voucher' }">
+  
+        <RouterLink 
+            to="/landed_cost_voucher" 
+            class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+            :class="{ 'font-bold': $route.path === '/landed_cost_voucher' }"
+        >
             <Icon icon="lucide:truck" class="h-5 w-5" />
             <span
                 class="transition-all duration-200 text-sm"
@@ -120,8 +140,12 @@
             Landed Cost Voucher
             </span>
         </RouterLink>
-
-        <RouterLink to="/stock_entry" class="nav-link" :class="{ 'font-bold': $route.path === '/stock_entry' }">
+  
+        <RouterLink 
+            to="/stock_entry" 
+            class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+            :class="{ 'font-bold': $route.path === '/stock_entry' }"
+        >
             <Icon icon="lucide:boxes" class="h-5 w-5" />
             <span
                 class="transition-all duration-200 text-sm"
@@ -130,8 +154,12 @@
             Stock Entry
             </span>
         </RouterLink>
-
-        <RouterLink to="/stock_reconciliation" class="nav-link" :class="{ 'font-bold': $route.path === '/stock_reconciliation' }">
+  
+        <RouterLink 
+            to="/stock_reconciliation" 
+            class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+            :class="{ 'font-bold': $route.path === '/stock_reconciliation' }"
+        >
             <Icon icon="lucide:refresh-ccw" class="h-5 w-5" />
             <span
                 class="transition-all duration-200 text-sm"
@@ -140,8 +168,12 @@
             Stock Reconciliation
             </span>
         </RouterLink>
-
-        <RouterLink to="/payment_reconciliation" class="nav-link" :class="{ 'font-bold': $route.path === '/payment_reconciliation' }">
+  
+        <RouterLink 
+            to="/payment_reconciliation" 
+            class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+            :class="{ 'font-bold': $route.path === '/payment_reconciliation' }"
+        >
             <Icon icon="lucide:check-circle" class="h-5 w-5" />
             <span
                 class="transition-all duration-200 text-sm"
@@ -150,12 +182,16 @@
             Payment Reconciliation
             </span>
         </RouterLink>
-
+  
         <!-- Divider -->
         <hr class="my-4 border-gray-300" :class="{ 'opacity-0': !isExpanded }" />
-
+  
         <!-- Reports -->
-        <RouterLink to="/general_ledger" class="nav-link" :class="{ 'font-bold': $route.path === '/general_ledger' }">
+        <RouterLink 
+            to="/general_ledger" 
+            class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+            :class="{ 'font-bold': $route.path === '/general_ledger' }"
+        >
             <Icon icon="lucide:clipboard-list" class="h-5 w-5" />
             <span
                 class="transition-all duration-200 text-sm"
@@ -164,8 +200,12 @@
             General Ledger
             </span>
         </RouterLink>
-
-        <RouterLink to="/accounts_receivable" class="nav-link" :class="{ 'font-bold': $route.path === '/accounts_receivable' }">
+  
+        <RouterLink 
+            to="/accounts_receivable" 
+            class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+            :class="{ 'font-bold': $route.path === '/accounts_receivable' }"
+        >
             <Icon icon="lucide:trending-up" class="h-5 w-5" />
             <span
                 class="transition-all duration-200 text-sm"
@@ -174,8 +214,12 @@
             Accounts Receivable
             </span>
         </RouterLink>
-
-        <RouterLink to="/accounts_payable" class="nav-link" :class="{ 'font-bold': $route.path === '/accounts_payable' }">
+  
+        <RouterLink 
+            to="/accounts_payable" 
+            class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+            :class="{ 'font-bold': $route.path === '/accounts_payable' }"
+        >
             <Icon icon="lucide:trending-down" class="h-5 w-5" />
             <span
                 class="transition-all duration-200 text-sm"
@@ -184,8 +228,12 @@
             Accounts Payable
             </span>
         </RouterLink>
-
-        <RouterLink to="/stock_ledger" class="nav-link" :class="{ 'font-bold': $route.path === '/stock_ledger' }">
+  
+        <RouterLink 
+            to="/stock_ledger" 
+            class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+            :class="{ 'font-bold': $route.path === '/stock_ledger' }"
+        >
             <Icon icon="lucide:layers" class="h-5 w-5" />
             <span
                 class="transition-all duration-200 text-sm"
@@ -194,8 +242,12 @@
             Stock Ledger
             </span>
         </RouterLink>
-
-        <RouterLink to="/stock_balance" class="nav-link" :class="{ 'font-bold': $route.path === '/stock_balance' }">
+  
+        <RouterLink 
+            to="/stock_balance" 
+            class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+            :class="{ 'font-bold': $route.path === '/stock_balance' }"
+        >
             <Icon icon="lucide:bar-chart-2" class="h-5 w-5" />
             <span
                 class="transition-all duration-200 text-sm"
@@ -205,7 +257,6 @@
             </span>
         </RouterLink>
       </nav>
-
   
       <!-- Spacer -->
       <div class="flex-grow"></div>
@@ -225,7 +276,7 @@
             {{ isExpanded ? 'Collapse' : 'Expand' }}
         </span>
       </button>
-
+  
     </div>
   </template>
   
@@ -240,9 +291,8 @@
   }
   </script>
   
-  <!-- Add this in your <style> block (if using scoped styles) -->
-<style scoped>
-    .nav-link {
+  <style scoped>
+  .nav-link {
     @apply flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors;
-    }
-</style>
+  }
+  </style>
