@@ -1,45 +1,51 @@
 <template>
-  <div class="m-5">
-    <!-- Heading and Create Button -->
-    <div class="flex items-baseline justify-between mb-4">
-      <h2 class="text-gray-900 font-semibold text-xl">Sales Invoice</h2>
-      <Button
-        variant="solid"
-        theme="gray"
-        size="sm"
-        label="Create"
-        @click="goToForm"
-      >
-    </Button>
-    
-    </div>
+  <div class="m-3 flex">
+    <!-- Sidebar -->
+    <SidebarLink class="w-1/5" />
 
-    <!-- Invoice List -->
-    <ListView
-      v-if="tasks.list.data"
-      :columns="[
-        { label: 'Customer', key: 'customer'},
-        { label: 'Date', key: 'posting_date' },
-        { label: 'Status', key: 'status' },
-        { label: 'ID', key: 'name' }
-      ]"
-      :rows="tasks.list.data"
-      :options="{
-        onRowClick: (row) => console.log(row),
-        selectable: true, 
-        showTooltip: true,
-        resizeColumn: true,
-        onSelectionChange: (rows) => selectedRows = rows 
-      }"
-      row-key="name"
-    />
+    <!-- Main Content -->
+    <div class="w-4/5 ml-3">
+      <!-- Heading and Create Button -->
+      <div class="flex items-baseline justify-between mb-4">
+        <h2 class="text-gray-900 font-semibold text-xl">Sales Invoice</h2>
+        <Button
+          variant="solid"
+          theme="gray"
+          size="sm"
+          label="Create"
+          @click="goToForm"
+        />
+      </div>
+
+      <!-- Invoice List -->
+      <ListView
+        v-if="tasks.list.data"
+        :columns="[
+          { label: 'Customer', key: 'customer'},
+          { label: 'Date', key: 'posting_date' },
+          { label: 'Status', key: 'status' },
+          { label: 'ID', key: 'name' }
+        ]"
+        :rows="tasks.list.data"
+        :options="{
+          onRowClick: (row) => router.push(`/sales_invoice/${row.name}`),
+          selectable: true, 
+          showTooltip: true,
+          resizeColumn: true,
+          onSelectionChange: (rows) => selectedRows = rows 
+        }"
+        row-key="name"
+      />
+    </div>
   </div>
 </template>
+
 
 <script setup>
   import { useRouter } from 'vue-router'
   import { createListResource} from 'frappe-ui'
   import { ListView, Button } from 'frappe-ui'
+  import SidebarLink from './SidebarLink.vue'
 
   const router = useRouter()
 

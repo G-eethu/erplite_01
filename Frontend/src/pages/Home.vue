@@ -1,120 +1,75 @@
 <template>
-  <div class="m-5">
-    <div class="flex items-baseline justify-between mb-4">
-      <h2 class="text-gray-900 font-semibold text-xl">Tasks</h2>
-      <Button
-        variant="solid"
-        theme="gray"
-        size="sm"
-        label="Create"
-        :loading="false"
-        :disabled="false"
-        @click="createDialogShown = true"
-      ></Button>
-    </div>
+  <div class="h-screen w-64 bg-gray-100 border-r flex flex-col p-4">
+    
+    <!-- Sidebar Title -->
+    <h1 class="text-xl font-semibold mb-6">Dashboard</h1>
 
-    <Dialog
-      :options="{
-        title: 'New Task',
-        size: '2xl',
-        actions: [
-          {
-            label: 'Create',
-            variant: 'solid',
-            onClick(close) {
-              tasks.insert.submit({
-                ...newTask
-              }, {
-                onSuccess() {
-                  resetForm()
-                  close()
-                }
-              })
-            }
-          }
-        ]
-      }"
-      v-model="createDialogShown"
+    <!-- Navigation Links -->
+    <nav class="flex flex-col gap-4">
+      <RouterLink
+        to="/sales_invoice_list"
+        class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+        :class="{ 'font-bold': $route.path === '/sales_invoice_list' }"
+      >
+        <Icon icon="lucide:file-text" class="h-5 w-5" />
+        <span>Sales Invoice</span>
+      </RouterLink>
+
+      <RouterLink
+        to="/customer"
+        class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+        :class="{ 'font-bold': $route.path === '/customer' }"
+      >
+        <Icon icon="lucide:user" class="h-5 w-5" />
+        <span>Customers</span>
+      </RouterLink>
+
+      <RouterLink
+        to="/chart_of_accounts"
+        class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+        :class="{ 'font-bold': $route.path === '/chart_of_accounts' }"
+      >
+      <Icon icon="lucide:folder" class="h-5 w-5" />
+        <span>Chart Of Accounts</span>
+      </RouterLink>
+
+      <RouterLink
+          to="/item"
+          class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+          :class="{ 'font-bold': $route.path === '/item' }"
+        >
+          <Icon icon="lucide:item" class="h-5 w-5" />
+          <span
+            class="transition-opacity duration-200"
+            :class="{ 'opacity-0': !isExpanded }"
+          >
+            Item
+          </span>
+        </RouterLink>
+    </nav>
+
+    <!-- Spacer -->
+    <div class="flex-grow"></div>
+
+    <!-- Collapse/Expand (Optional) -->
+    <button
+      class="mt-6 flex items-center gap-2 text-gray-500 hover:text-gray-700"
+      @click="toggleSidebar"
     >
-      <template #body-content>
-        <form class="space-y-3">
-          <div class="p-2">
-            <FormControl
-              type="text"
-              placeholder="Enter subject"
-              label="Subject"
-              v-model="newTask.subject"
-            />
-          </div>
-          <div class="p-2">
-            <FormControl
-              type="select"
-              :options="['Open', 'Closed', 'Working']"
-              placeholder="Select status"
-              label="Status"
-              v-model="newTask.status"
-            />
-          </div>
-          <div class="p-2">
-            <FormControl
-              type="textarea"
-              placeholder="Enter description"
-              label="Description"
-              v-model="newTask.description"
-            />
-          </div>
-        </form>
-      </template>
-    </Dialog>
+      <Icon :icon="isExpanded ? 'lucide:arrow-left' : 'lucide:arrow-right'" class="h-4 w-4" />
+      <span>{{ isExpanded ? 'Collapse' : 'Expand' }}</span>
+    </button>
 
-    <!-- ListView Component -->
-    <ListView
-      v-if="tasks.list.data"
-      :columns="[
-        { label: 'Subject', key: 'subject', width: 0.4 },
-        { label: 'Status', key: 'status' },
-        { label: 'Description', key: 'description' }
-      ]"
-      :rows="tasks.list.data"
-      :options="{ showTooltip: false }"
-    />
-    <div v-else class="text-center text-gray-500">No tasks found.</div>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive, watch } from 'vue'
-import { createListResource } from 'frappe-ui'
-import { ListView, Dialog, FormControl } from 'frappe-ui'
-import { onKeyStroke } from '@vueuse/core'
+import { ref } from 'vue'
+import { Icon } from '@iconify/vue'
 
-const createDialogShown = ref(false)
+const isExpanded = ref(true)
 
-const newTask = reactive({
-  subject: '',
-  status: 'Open',
-  description: ''
-})
-
-function resetForm() {
-  newTask.subject = ''
-  newTask.status = 'Open'
-  newTask.description = ''
+function toggleSidebar() {
+  isExpanded.value = !isExpanded.value
 }
-
-watch(createDialogShown, (val) => {
-  if (!val) resetForm()
-})
-
-onKeyStroke(['c', 'C'], () => {
-  createDialogShown.value = true
-})
-
-const tasks = createListResource({
-  doctype: 'Task',
-  fields: ['subject', 'status', 'description'],
-  orderBy: 'creation desc'
-})
-
-tasks.list.fetch()
 </script>

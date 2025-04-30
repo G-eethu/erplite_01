@@ -15,7 +15,7 @@ const routes = [
   },
   {
     name: 'Item',
-    path: '/Item',
+    path: '/item',
     component: () => import('@/pages/Item.vue'),
   },
   {
@@ -29,11 +29,6 @@ const routes = [
     component: () => import('@/pages/Sales-Invoice.vue'),
   },
   {
-    name: 'Todo',
-    path: '/todo',
-    component: () => import('@/pages/Todo.vue'),
-  },
-  {
     name: 'Customer',
     path: '/customer',
     component: () => import('@/pages/Customer.vue'),
@@ -42,6 +37,11 @@ const routes = [
     name: 'ChartOfAccounts',
     path: '/chart_of_accounts',
     component: () => import('@/pages/ChartOfAccounts.vue'),
+  },
+  {
+    name: 'Todo',
+    path: '/todo',
+    component: () => import('@/pages/Todo.vue'),
   },
 ]
 

@@ -9,6 +9,7 @@
     "copy-html-entry": "cp ../erplite_01/public/Frontend/index.html ../erplite_01/www/Frontend.html"
   },
   "dependencies": {
+    "@iconify/vue": "^4.3.0",
     "feather-icons": "^4.29.2",
     "frappe-ui": "^0.1.72",
     "vue": "^3.5.12",

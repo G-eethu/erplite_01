@@ -1,95 +1,89 @@
 <template>
-  <div class="m-5">
-    <div class="flex items-baseline justify-between mb-4">
-      <h2 class="text-gray-900 font-semibold text-xl">Customer List</h2>
-      <Button
-        variant="solid"
-        theme="gray"
-        size="sm"
-        label="Create"
-        :loading="false"
-        :disabled="false"
-        @click="createDialogShown = true"
-      ></Button>
-    </div>
+  <div class="m-3 flex">
+    <!-- Sidebar -->
+    <SidebarLink class="w-1/5" />
 
-    <Dialog
-      v-model="createDialogShown"
-      :options="{
-        title: 'New Customer',
-        size: '2xl',
-        actions: [
-          {
-            label: 'Create',
-            variant: 'solid',
-            onClick(close) {
-              customers.insert.submit({ ...newCustomer }, {
-                onSuccess() {
-                  resetForm();
-                  close();
-                }
-              });
+    <!-- Main Content -->
+    <div class="w-4/5 ml-3">
+      <!-- Header -->
+      <div class="flex items-baseline justify-between mb-4">
+        <h2 class="text-gray-900 font-semibold text-xl">Customer List</h2>
+        <Button
+          variant="solid"
+          theme="gray"
+          size="sm"
+          label="Create"
+          :loading="false"
+          :disabled="false"
+          @click="createDialogShown = true"
+        />
+      </div>
+
+      <!-- Create Customer Dialog -->
+      <Dialog
+        v-model="createDialogShown"
+        :options="{
+          title: 'New Customer',
+          size: '2xl',
+          actions: [
+            {
+              label: 'Create',
+              variant: 'solid',
+              onClick(close) {
+                customers.insert.submit({ ...newCustomer }, {
+                  onSuccess() {
+                    resetForm();
+                    customers.list.fetch();
+                    close();
+                  }
+                });
+              }
             }
-          }
-        ]
-      }"
-    >
-      <template #body-content>
-        <form class="space-y-3">
-          <div class="p-2">
-            <FormControl
-              type="text"
-              placeholder="Enter Name"
-              label="Customer Name"
-              v-model="newCustomer.customer_name"
-            />
-          </div>
-          <div class="p-2">
-            <FormControl
-              type="select"
-              :options="['Company', 'Individual', 'Partnership']"
-              placeholder="Select Customer Type"
-              label="Customer Type"
-              v-model="newCustomer.customer_type"
-            />
-          </div>
-          <div class="p-2">
-            <FormControl
-              type="select"
-              :options="customerGroupOptions"
-              placeholder="Select Customer Group"
-              label="Customer Group"
-              v-model="newCustomer.customer_group"
-            />
-          </div>
-          <div class="p-2">
-            <FormControl
-              type="select"
-              :options="territoryOptions"
-              placeholder="Select Territory"
-              label="Territory"
-              v-model="newCustomer.territory"
-            />
-          </div>
-          <div class="p-1">
-            <Button
-              :variant="'solid'"
-              :ref_for="true"
-              theme="gray"
-              size="sm"
-              label="Button"
-              :loading="false"
-              :loadingText="null"
-              :disabled="false"
-              :link="null"
-            >
-              Button
-            </Button>
-          </div>
+          ]
+        }"
+      >
+        <template #body-content>
+          <form class="space-y-3">
+            <div class="p-2">
+              <FormControl
+                type="text"
+                placeholder="Enter Name"
+                label="Customer Name"
+                v-model="newCustomer.customer_name"
+              />
+            </div>
+            <div class="p-2">
+              <FormControl
+                type="select"
+                :options="['Company', 'Individual', 'Partnership']"
+                placeholder="Select Customer Type"
+                label="Customer Type"
+                v-model="newCustomer.customer_type"
+              />
+            </div>
+            <div class="p-2">
+              <FormControl
+                type="select"
+                :options="customerGroupOptions"
+                placeholder="Select Customer Group"
+                label="Customer Group"
+                v-model="newCustomer.customer_group"
+              />
+            </div>
+            <div class="p-2">
+              <FormControl
+                type="select"
+                :options="territoryOptions"
+                placeholder="Select Territory"
+                label="Territory"
+                v-model="newCustomer.territory"
+              />
+            </div>
+          </form>
+        </template>
+      </Dialog>
 
-        </form>
-      </template>
-    </Dialog>
+      <!-- Customer List -->
       <ListView
         v-if="customers.list.data && customers.list.data.length"
         :columns="[
@@ -110,9 +104,11 @@
         row-key="name"
       />
 
+      <!-- Empty state -->
       <div v-else class="text-center text-gray-500 py-10">
         No customers found.
       </div>
+    </div>
   </div>
 </template>
 
@@ -122,6 +118,7 @@ import { ref, reactive, watch, computed } from 'vue'
 import { createListResource } from 'frappe-ui'
 import { ListView, Dialog, FormControl, Button } from 'frappe-ui'
 import { onKeyStroke } from '@vueuse/core'
+import SidebarLink from './SidebarLink.vue'
 
 const createDialogShown = ref(false)
 const selectedRows = ref([])
