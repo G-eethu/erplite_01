@@ -43,6 +43,36 @@ const routes = [
     path: '/todo',
     component: () => import('@/pages/Todo.vue'),
   },
+  {
+    name: 'Edit Sales Invoice',
+    path: '/edit_sales_invoice',
+    component: () => import('@/pages/EditSalesinvoice.vue'),
+  },
+  {
+    name: 'Account',
+    path: '/account',
+    component: () => import('@/pages/Account.vue'),
+  },
+  {
+    name: 'PurchaseInvoiceList',
+    path: '/purchase_invoice_list',
+    component: () => import('@/pages/PurchaseInvoiceList.vue'),
+  },
+  {
+    name: 'PaymentEntryList',
+    path: '/Payment Entry List',
+    component: () => import('@/pages/PaymentEntryList.vue'),
+  },
+  {
+    name: 'JournalEntryList',
+    path: '/Journal Entry List',
+    component: () => import('@/pages/JournalEntryList.vue'),
+  },
+  {
+    name: 'LandedCostVoucher',
+    path: '/Landed Cost Voucher',
+    component: () => import('@/pages/LandedCostVoucher.vue'),
+  }
 ]
 
 let router = createRouter({

@@ -90,9 +90,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in form.items" :key="index">
-            <td class="p-2">{{ index + 1 }}</td>
-            <td class="p-2 w-[25%]">
+          <tr
+            v-for="(item, index) in form.items"
+            :key="index"
+            class="even:bg-gray-50 odd:bg-gray-50 hover:bg-gray-50 transition-colors"
+          >
+            <td class="p-2 text-center text-gray-600 font-medium w-10">{{ index + 1 }}</td>
+            <td class="p-2 w-[25%] text-gray-500">
               <div class="flex items-center gap-2">
                 <FrappeLink
                   v-model="item.item_code"
@@ -102,17 +106,28 @@
                   @create-new="showNewItemDialog = true"
                   class="flex-1"
                 />
-                <Button label="+New" variant="solid" theme="gray" size="sm" @click="(showNewItemDialog = true, selectedItemRowIndex = index)" />
+                <Button
+                  label="+New"
+                  variant="solid"
+                  theme="gray"
+                  size="sm"
+                  @click="(showNewItemDialog = true, selectedItemRowIndex = index)"
+                />
               </div>
             </td>
-            <td class="p-2 text-left">
+            <td class="p-2 text-left text-gray-700">
               <FormControl type="text" v-model="item.qty" placeholder="0" />
             </td>
-            <td class="p-2 text-left">
+            <td class="p-2 text-left text-gray-700">
               <FormControl type="text" v-model="item.rate" placeholder="0.00" />
             </td>
-            <td class="p-2 text-left">
-              <FormControl type="text" v-model="item.amount" placeholder="0.00" :disabled="true" />
+            <td class="p-2 text-left text-gray-800 font-semibold">
+              <FormControl
+                type="text"
+                v-model="item.amount"
+                placeholder="0.00"
+                :disabled="true"
+              />
             </td>
           </tr>
         </tbody>

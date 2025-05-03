@@ -41,6 +41,20 @@
             Customers
             </span>
         </RouterLink>
+
+        <RouterLink
+            to="/account"
+            class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+            :class="{ 'font-bold': $route.path === '/account' }"
+        >
+            <Icon icon="lucide:folder" class="h-5 w-5" />
+            <span
+                class="transition-all duration-200 text-sm"
+                :class="{ 'hidden': !isExpanded }"
+            >
+            Account
+            </span>
+        </RouterLink>
   
         <RouterLink
             to="/chart_of_accounts"
@@ -86,9 +100,9 @@
         </RouterLink>
   
         <RouterLink 
-            to="/purchase_invoice" 
+            to="/purchase_invoice_list" 
             class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
-            :class="{ 'font-bold': $route.path === '/purchase_invoice' }"
+            :class="{ 'font-bold': $route.path === '/purchase_invoice_list' }"
         >
             <Icon icon="lucide:file-minus" class="h-5 w-5" />
             <span
@@ -100,9 +114,9 @@
         </RouterLink>
   
         <RouterLink 
-            to="/payment_entry" 
+            to="/Payment Entry List" 
             class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
-            :class="{ 'font-bold': $route.path === '/payment_entry' }"
+            :class="{ 'font-bold': $route.path === '/Payment Entry List' }"
         >
             <Icon icon="lucide:credit-card" class="h-5 w-5" />
             <span
@@ -114,9 +128,9 @@
         </RouterLink>
   
         <RouterLink 
-            to="/journal_entry" 
+            to="/Journal Entry List" 
             class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
-            :class="{ 'font-bold': $route.path === '/journal_entry' }"
+            :class="{ 'font-bold': $route.path === '/Journal Entry List' }"
         >
             <Icon icon="lucide:book" class="h-5 w-5" />
             <span
@@ -128,9 +142,9 @@
         </RouterLink>
   
         <RouterLink 
-            to="/landed_cost_voucher" 
+            to="/Landed Cost Voucher" 
             class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
-            :class="{ 'font-bold': $route.path === '/landed_cost_voucher' }"
+            :class="{ 'font-bold': $route.path === '/Landed Cost Voucher' }"
         >
             <Icon icon="lucide:truck" class="h-5 w-5" />
             <span
