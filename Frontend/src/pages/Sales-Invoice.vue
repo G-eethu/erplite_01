@@ -87,6 +87,7 @@
             <th class="p-2 text-left">Quantity</th>
             <th class="p-2 text-left">Rate</th>
             <th class="p-2 text-left">Amount</th>
+            <th class="p-2 text-left"></th>
           </tr>
         </thead>
         <tbody>
@@ -127,6 +128,12 @@
                 v-model="item.amount"
                 placeholder="0.00"
                 :disabled="true"
+              />
+            </td>
+            <td class="p-2 text-center">
+              <Trash2
+                class="w-5 h-5 text-red-500 hover:text-red-700 cursor-pointer"
+                @click="form.items.splice(index, 1)"
               />
             </td>
           </tr>
@@ -293,6 +300,8 @@
   } from 'frappe-ui'
   import { useRouter } from 'vue-router'
   import FrappeLink from '@/components/frappe-ui/Link.vue'
+  import { Trash2 } from 'lucide-vue-next'
+
 
   const router = useRouter()
 
@@ -308,6 +317,13 @@
     customer_group: '',
     territory: ''
   })
+
+  function deleteRow(index) {
+    if (form.items.length > 1) {
+      form.items.splice(index, 1)
+    }
+  }
+
 
   const newItem = reactive({
     item_code: '',

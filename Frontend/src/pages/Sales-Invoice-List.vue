@@ -7,7 +7,7 @@
     <div class="w-4/5 ml-3">
       <!-- Heading and Create Button -->
       <div class="flex items-baseline justify-between mb-4">
-        <h2 class="text-gray-800 font-semibold text-xl">Sales Invoice</h2>
+        <h2 class="text--800 font-semibold text-xl">Sales Invoice</h2>
         <Button
           variant="solid"
           theme="gray"
@@ -36,19 +36,6 @@
         }"
         row-key="name"
       >
-        <!-- Custom slot for the status column -->
-        <template #cell-status="{ row }">
-          <span
-            class="px-2 py-1 rounded text-xs font-medium"
-            :class="{
-              'bg-red-100 text-red-700': row.status === 'Unpaid' || row.status === 'Cancelled',
-              'bg-green-100 text-green-700': row.status === 'Paid' || row.status === 'Submitted',
-              'bg-yellow-100 text-yellow-700': row.status === 'Draft'
-            }"
-          >
-            {{ row.status }}
-          </span>
-        </template>
       </ListView>
 
     </div>
