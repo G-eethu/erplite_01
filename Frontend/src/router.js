@@ -72,6 +72,11 @@ const routes = [
     name: 'LandedCostVoucher',
     path: '/Landed Cost Voucher',
     component: () => import('@/pages/LandedCostVoucher.vue'),
+  },
+  {
+    name: 'GeneralLedger',
+    path: '/general_ledger',
+    component: () => import('@/pages/GeneralLedger.vue'),
   }
 ]
 

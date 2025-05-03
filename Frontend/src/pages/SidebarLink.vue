@@ -202,18 +202,21 @@
   
         <!-- Reports -->
         <RouterLink 
-            to="/general_ledger" 
+            to="#"
             class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
-            :class="{ 'font-bold': $route.path === '/general_ledger' }"
+            :class="{ 'font-bold': $route.path === '/app/query-report/General%20Ledger' }"
+            @click="goToGeneralLedger"
         >
             <Icon icon="lucide:clipboard-list" class="h-5 w-5" />
             <span
                 class="transition-all duration-200 text-sm"
                 :class="{ 'hidden': !isExpanded }"
             >
-            General Ledger
+                General Ledger
             </span>
         </RouterLink>
+
+
   
         <RouterLink 
             to="/accounts_receivable" 
@@ -292,21 +295,42 @@
       </button>
   
     </div>
-  </template>
+</template>
   
-  <script setup>
-  import { ref } from 'vue'
-  import { Icon } from '@iconify/vue'
-  
-  const isExpanded = ref(true)
-  
-  function toggleSidebar() {
-    isExpanded.value = !isExpanded.value
-  }
-  </script>
-  
-  <style scoped>
-  .nav-link {
-    @apply flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors;
-  }
-  </style>
+<script setup>
+    import { ref, onMounted } from 'vue'
+    import { Icon } from '@iconify/vue'
+    import moment from 'moment'
+    
+    const company = ref('')
+    const from_date = moment().subtract(30, 'days').format('YYYY-MM-DD')
+    const to_date = moment().format('YYYY-MM-DD')
+    const group_by = ''
+
+    onMounted(async () => {
+        try {
+        // Fetch the default company from the Global Defaults doctype
+        const globalDefaults = await frappe.call({
+            method: 'frappe.core.doctype.global_settings.global_settings.get_defaults',
+        })
+
+        company.value = globalDefaults.message?.default_company || ''
+        } catch (error) {
+        console.error('Error fetching default company:', error)
+        }
+    })
+    
+    const url = `/app/query-report/General%20Ledger?company=${encodeURIComponent(company)}&from_date=${from_date}&to_date=${to_date}&group_by=${encodeURIComponent(group_by)}&include_dimensions=1&include_default_book_entries=1`
+    
+    const isExpanded = ref(true)
+    
+    function toggleSidebar() {
+        isExpanded.value = !isExpanded.value
+    }
+
+    // Navigate to the General Ledger report when the link is clicked
+    function goToGeneralLedger(event) {
+        event.preventDefault();
+        window.location.href = url;
+    }
+</script>
