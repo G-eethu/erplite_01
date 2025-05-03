@@ -219,9 +219,10 @@
 
   
         <RouterLink 
-            to="/accounts_receivable" 
+            to="#"
             class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
-            :class="{ 'font-bold': $route.path === '/accounts_receivable' }"
+            :class="{ 'font-bold': $route.path === '/app/query-report/Accounts%20Receivable' }"
+            @click="goToAccountsReceivable"
         >
             <Icon icon="lucide:trending-up" class="h-5 w-5" />
             <span
@@ -233,9 +234,10 @@
         </RouterLink>
   
         <RouterLink 
-            to="/accounts_payable" 
+            to="#"
             class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
-            :class="{ 'font-bold': $route.path === '/accounts_payable' }"
+            :class="{ 'font-bold': $route.path === '/app/query-report/Accounts%20Payable' }"
+            @click="goToAccountsPayable"
         >
             <Icon icon="lucide:trending-down" class="h-5 w-5" />
             <span
@@ -247,9 +249,10 @@
         </RouterLink>
   
         <RouterLink 
-            to="/stock_ledger" 
+            to="#"
             class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
-            :class="{ 'font-bold': $route.path === '/stock_ledger' }"
+            :class="{ 'font-bold': $route.path === '/app/query-report/Stock%20Ledger' }"
+            @click="goToStockLedger"
         >
             <Icon icon="lucide:layers" class="h-5 w-5" />
             <span
@@ -261,9 +264,10 @@
         </RouterLink>
   
         <RouterLink 
-            to="/stock_balance" 
+            to="#"
             class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
-            :class="{ 'font-bold': $route.path === '/stock_balance' }"
+            :class="{ 'font-bold': $route.path === '/app/query-report/Stock%20Balance' }"
+            @click="goToStockBalance"
         >
             <Icon icon="lucide:bar-chart-2" class="h-5 w-5" />
             <span
@@ -321,6 +325,12 @@
     })
     
     const url = `/app/query-report/General%20Ledger?company=${encodeURIComponent(company)}&from_date=${from_date}&to_date=${to_date}&group_by=${encodeURIComponent(group_by)}&include_dimensions=1&include_default_book_entries=1`
+    const accountsReceivableUrl = `/app/query-report/Accounts%20Receivable?company=${encodeURIComponent(company)}&report_date=${to_date}&ageing_based_on=Due+Date&range=30%2C+60%2C+90%2C+120`
+    const accountsPayableUrl = `/app/query-report/Accounts%20Payable?company=${encodeURIComponent(company)}&report_date=${to_date}&ageing_based_on=Due+Date&range=30%2C+60%2C+90%2C+120`
+    const stockLedgerUrl = `/app/query-report/Stock%20Ledger?company=${encodeURIComponent(company)}&from_date=${from_date}&to_date=${to_date}&valuation_field_type=Currency`
+    const stockBalanceUrl = `/app/query-report/Stock%20Balance?company=${encodeURIComponent(company)}&from_date=${from_date}&to_date=${to_date}&valuation_field_type=Currency`
+
+
     
     const isExpanded = ref(true)
     
@@ -333,4 +343,25 @@
         event.preventDefault();
         window.location.href = url;
     }
+
+    function goToAccountsReceivable(event) {
+        event.preventDefault()
+        window.location.href = accountsReceivableUrl
+    }
+
+    function goToAccountsPayable(event) {
+        event.preventDefault()
+        window.location.href = accountsPayableUrl
+    }
+
+    function goToStockLedger(event) {
+        event.preventDefault()
+        window.location.href = stockLedgerUrl
+    }
+
+    function goToStockBalance(event) {
+        event.preventDefault()
+        window.location.href = stockBalanceUrl
+    }
+
 </script>

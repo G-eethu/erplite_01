@@ -7,10 +7,10 @@
     <div class="w-4/5 ml-3">
       <!-- Heading and Create Button -->
       <div class="flex items-baseline justify-between mb-4">
-        <h2 class="text-blue-800 font-semibold text-xl">Sales Invoice</h2>
+        <h2 class="text-gray-800 font-semibold text-xl">Sales Invoice</h2>
         <Button
           variant="solid"
-          theme="blue"
+          theme="gray"
           size="sm"
           label="Create"
           @click="goToForm"

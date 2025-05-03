@@ -7,7 +7,7 @@
       <div class="w-4/5 ml-3">
         <!-- Heading and Create Button -->
         <div class="flex items-baseline justify-between mb-4">
-          <h2 class="text-blue-900 font-semibold text-xl">Payment Entry</h2>
+          <h2 class="text-gray-900 font-semibold text-xl">Payment Entry</h2>
           <Button
             variant="solid"
             theme="gray"
