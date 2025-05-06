@@ -74,9 +74,9 @@ const routes = [
     component: () => import('@/pages/LandedCostVoucher.vue'),
   },
   {
-    name: 'GeneralLedger',
-    path: '/general_ledger',
-    component: () => import('@/pages/GeneralLedger.vue'),
+    name: 'SalesInvoice',
+    path: '/SalesInvoice',
+    component: () => import('@/pages/SalesInvoice.vue'),
   }
 ]
 

@@ -8,7 +8,7 @@
         class="text-base font-semibold mb-4 whitespace-nowrap overflow-hidden transition-opacity duration-200"
         :class="{ 'hidden': !isExpanded }"
         >
-        Dashboard
+        <!-- Dashboard -->
       </h1>
   
       <!-- Navigation Links -->
@@ -25,6 +25,20 @@
                 :class="{ 'hidden': !isExpanded }"
             >
             Sales Invoice
+            </span>
+        </RouterLink>
+
+        <RouterLink
+            to="/SalesInvoice"
+            class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
+            :class="{ 'font-bold': $route.path === '/SalesInvoice' }"
+        >
+            <Icon icon="lucide:file-text" class="h-5 w-5" />
+            <span
+                class="transition-all duration-200 text-sm"
+                :class="{ 'hidden': !isExpanded }"
+            >
+            Sales Invoicessss
             </span>
         </RouterLink>
   
@@ -56,19 +70,21 @@
             </span>
         </RouterLink>
   
-        <RouterLink
-            to="/chart_of_accounts"
+        <RouterLink 
+            to="#"
             class="flex items-center gap-2 text-gray-700 hover:text-blue-600"
-            :class="{ 'font-bold': $route.path === '/chart_of_accounts' }"
+            :class="{ 'font-bold': $route.path === '/app/account/view/tree' }"
+            @click="goToChartOfAccounts"
         >
-            <Icon icon="lucide:folder" class="h-5 w-5" />
+            <Icon icon="lucide:list-tree" class="h-5 w-5" />
             <span
                 class="transition-all duration-200 text-sm"
                 :class="{ 'hidden': !isExpanded }"
             >
-            Chart Of Accounts
+            Chart of Accounts
             </span>
         </RouterLink>
+
   
         <RouterLink
             to="/item"
@@ -363,5 +379,11 @@
         event.preventDefault()
         window.location.href = stockBalanceUrl
     }
+
+    const goToChartOfAccounts = () => {
+        const chartOfAccountsUrl = `/app/account/view/tree?company=${encodeURIComponent(company.value)}`
+        window.location.href = chartOfAccountsUrl
+    }
+
 
 </script>
